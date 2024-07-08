@@ -1,28 +1,50 @@
-import { BrowserRouter,NavLink, Route, Routes } from "react-router-dom";
+import { BrowserRouter,Link,NavLink, Route, Routes, useLocation } from "react-router-dom";
 import Campaign from "../Campaign";
 import App from "../App";
+import Login from "../Login";
 import Whale1 from "../assets/whaleLogo1.svg";
+import Refresh from "./Refresh";
+import SignUp from "../SignUp";
+import Posts from "../Posts";
+import Rewards from "../Rewards";
+import Profile from "../Profile";
+import CampaignJoin from "../CampaignJoin";
+import RewardsHistory from "../RewardsHistory";
+import YourPosts from "../YourPosts";
 function Nav() {
     return(
         <>
         <BrowserRouter>
-        <nav className="w-full h-auto sticky top-0 left-0 bg-[#0c2141] flex items-center py-3 px-4 justify-between">
+        {window.location.pathname !== "/login" && window.location.pathname !== "/signup" ? (
+           <> <nav className="navbar z-20">
             <figure className="w-[30%] h-auto">
                 <img src={Whale1} alt="" className="w-48 h-auto"/>
             </figure>
-            <div className="w-[50%] flex justify-center gap-4 text-white font-bold">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/posts">Posts</NavLink>
-            <NavLink to="/campaign">Campaigns</NavLink>
-            <NavLink to="/rewards">Rewards</NavLink>
+            <div className="w-[50%] flex justify-center gap-8 text-white font-bold">
+            <NavLink to="/" className="font-['Inter'] hover:text-accent duration-500">Home</NavLink>
+            <NavLink to="/posts" className="font-['Inter'] hover:text-accent duration-500">Posts</NavLink>
+            <NavLink to="/campaign" className="font-['Inter'] hover:text-accent duration-500">Campaigns</NavLink>
+            <NavLink to="/rewards" className="font-['Inter'] hover:text-accent duration-500">Rewards</NavLink>
             </div>
-            <div className="w-[30%] h-auto text-right">
-                <button className="btn btn-sm btn-secondary">Log in</button>
+            <div className="w-[30%] h-auto flex justify-end">
+                <NavLink className="btn btn-sm btn-secondary" to="/login" onClick={Refresh}>Log in</NavLink>
             </div>
         </nav>
+        </>
+        ): (
+            <></>
+        )}
         <Routes>
             <Route path="/" element={<App/>} />
+            <Route path="/posts" element={<Posts/>}/>
             <Route path="/campaign" element={<Campaign/>}/>
+            <Route path="/rewards" element={<Rewards/>}/>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/signup" element={<SignUp/>}/>
+            <Route path="/profile" element={<Profile/>}/>
+            <Route path="/campaign/join" element={<CampaignJoin/>}/>
+            <Route path="/yourposts" element={<YourPosts/>}/>
+            <Route path="/rewards/history" element={<RewardsHistory/>}/>
         </Routes>
         </BrowserRouter>
         </>
