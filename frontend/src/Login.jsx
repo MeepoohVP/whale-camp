@@ -11,12 +11,18 @@ function Login() {
         axios.post('http://10.4.53.25:4006/login',
             {
                 email,
-                password
+                password,
+                
             }
         )
         .then(response => {
-            console.log(response.data);
-            window.location.replace("/");
+            if(response.data==="No record"){
+                console.log(response);
+            }else{
+                console.log(response.data);
+                window.location.replace('/');
+            }
+            
         })
         .catch(error => {
             console.error('There was an error!', error);

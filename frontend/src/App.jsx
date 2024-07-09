@@ -6,6 +6,7 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import Card from './components/Card';
 import Refresh from './components/Refresh';
+import Star from './assets/star.png';
 const options = {
   method: 'GET',
   url: 'https://sea-surface-temperature.p.rapidapi.com/historical',
@@ -38,65 +39,42 @@ const divStyle = {
   backgroundSize: 'cover',
   height: '400px'
 }
-const slideImages = [
-  {
-    url: 'https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
-    caption: 'Slide 1'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80',
-    caption: 'Slide 2'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
-    caption: 'Slide 3'
-  },
-];
 
 function App() {
   const [userList, setUserList] = useState([]);
+  const [campaignList, setCampaignList] = useState([]);
   const apiCall = () => {
     axios.get('http://10.4.53.25:4006/user').then((res) => {
       //this console.log will be in our frontend console
       setUserList(res.data);
     })
   }
+  axios.get('http://10.4.53.25:4006/campaign').then((res) => {
+      //this console.log will be in our frontend console
+      setCampaignList(res.data);
+    })
   
-  let dt = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus minima nobis iure ducimus eos explicabo natus, soluta repellat dolorem repellendus.";
+  
   return (
     <>
     {Refresh}
-    <div className="slide-container">
-        <Slide>
-         {slideImages.map((slideImage, index)=> (
-            <div key={index}>
-              <div style={{ ...divStyle, 'backgroundImage': `url(${slideImage.url})` }}>
-                <span style={spanStyle}>{slideImage.caption}</span>
-              </div>
-            </div>
-          ))} 
-        </Slide>
+    <div className="cover">
+        
       </div>
       <div className="px-2 pt-4 relative">
         <h3 className='text-3xl font-semibold'>Campaign</h3>
         <div className="card-channel">
-        <Card topic={"Topic"}/> <Card topic={"Topic"}/><Card topic={"Topic"}/><Card topic={"Topic"}/><Card topic={"Topic"}/><Card topic={"Topic"}/><Card topic={"Topic"}/>
-        </div>
-      </div>
-      <div className="App">
-      <header className="App-header">
-
-        <button onClick={apiCall} className={`btn btn-primary text-red-300`}>Make API Call</button>
-      </header>
-      {userList.map((val, key) => {
+        {campaignList.map((val, key) => {
         return (
           <>
-          <p>{val.userId}</p>
-          <p>{val.userName}</p>
+          <Card topic={val.campaignName} pic={val.imgLink} pt={val.rewardPoint}/>
           </>
         )
       })}
-    </div>
+        
+        </div>
+      </div>
+
     
     </>
   )

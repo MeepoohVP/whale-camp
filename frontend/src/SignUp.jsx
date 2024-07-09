@@ -19,7 +19,7 @@ function SignUp() {
             }
         )
         .then(response => {
-            navigate('/login');
+            navigate('/');
             console.log(response.data);
         })
         .catch(error => {

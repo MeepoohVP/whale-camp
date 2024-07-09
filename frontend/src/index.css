@@ -22,7 +22,7 @@
     background-position: top center;
 }
 .card-channel{
-    @apply flex gap-4 mt-4 pb-2 overflow-x-scroll relative;
+    @apply flex gap-4 mt-4 pb-2 overflow-x-auto relative;
 }
 .card-channel::-webkit-scrollbar {
     height: 8px;
@@ -43,4 +43,11 @@
   /* Handle on hover */
   .card-channel::-webkit-scrollbar-thumb:hover {
     background: #878787; 
+  }
+
+  .cover{
+    @apply w-full h-64;
+    background-image: url("./assets/star.png");
+    background-repeat: no-repeat;
+    background-position: center;
   }
